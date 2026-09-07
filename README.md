@@ -1,5 +1,7 @@
 # Trilhas Socioemocionais
 
+Aplicativo demonstrativo para acompanhamento socioemocional por grupos, com perfis de Professor(a) e Direção Escolar.
+
 Protótipo responsivo para o acompanhamento pedagógico socioemocional de estudantes. A aplicação foi construída para demonstrar os fluxos principais de professores e da equipe gestora, usando somente dados fictícios.
 
 ## Como abrir
