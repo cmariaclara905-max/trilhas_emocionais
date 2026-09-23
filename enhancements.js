@@ -2,6 +2,15 @@
 const originalDirectionView = directionView;
 directionView = function () { return state.page === 'alertas' ? alertsView() : originalDirectionView(); };
 
+document.addEventListener('click', event => {
+  const button = event.target.closest('button');
+  if (!button || button.dataset.page !== 'alertas') return;
+  event.preventDefault();
+  event.stopImmediatePropagation();
+  state.page = 'alertas';
+  app.innerHTML = `<div class="shell">${nav()}<main class="content">${alertsView()}</main></div>`;
+}, true);
+
 view = function () {
   if (state.stage === 'profile') return profileView();
   if (state.stage === 'login') return loginView();
