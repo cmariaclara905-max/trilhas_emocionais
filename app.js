@@ -34,7 +34,7 @@ const latest = id => groupEvals(id).at(-1);
 const activeStudents = g => g.students.filter(s=>!data.hidden.includes(s));
 const mean = scores => scores.reduce((a,b)=>a+b,0)/scores.length;
 const studentScores = (name,g) => groupEvals(g.id).filter(e=>e.scores[name]).map(e=>({month:e.month,score:mean(e.scores[name]),values:e.scores[name],obs:e.obs[name]}));
-const tag = score => `<span class="tag ${score<=2?'yellow':''}">${score} · ${labels[score-1]}</span>`;
+const tag = score => { const level=Math.max(1,Math.min(4,Math.round(score))); return `<span class="tag ${level<=2?'yellow':''}">${Number(score).toFixed(1)} · ${labels[level-1]}</span>` };
 const notice = () => '<div class="notice">🔒 <b>Informações pedagógicas confidenciais.</b> Use observações contextualizadas, avanços e estratégias de apoio; evite rótulos permanentes.</div>';
 const header = title => `<header class="topbar"><div><p class="eyebrow">${esc(state.role)}</p><h1>${title}</h1></div><div class="user"><div class="avatar">${state.role==='Direção escolar'?'D':'M'}</div><small>${state.role==='Direção escolar'?'Equipe gestora':'Professora Mariana'}</small></div></header>`;
 
