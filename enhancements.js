@@ -26,7 +26,11 @@ document.addEventListener('click', event => {
   app.innerHTML = `<div class="shell">${nav()}<main class="content">${groupEvaluationsView(state.group)}</main></div>`;
 }, true);
 
-const decorateGroups = () => document.querySelectorAll('[data-action="evaluate"]').forEach(button => {
+const removeEvaluationMenu = () => document.querySelectorAll('button[data-page="avaliacoes"]').forEach(button => button.remove());
+
+const decorateGroups = () => {
+  removeEvaluationMenu();
+  document.querySelectorAll('[data-action="evaluate"]').forEach(button => {
   const parent = button.parentElement;
   if (!parent || parent.querySelector('[data-action="group-evals"]')) return;
   const history = document.createElement('button');
@@ -35,7 +39,8 @@ const decorateGroups = () => document.querySelectorAll('[data-action="evaluate"]
   history.dataset.id = button.dataset.id;
   history.textContent = 'Avaliações anteriores';
   parent.append(history);
-});
+  });
+};
 new MutationObserver(decorateGroups).observe(app, { childList:true, subtree:true });
 decorateGroups();
 
