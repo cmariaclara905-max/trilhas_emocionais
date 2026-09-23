@@ -13,4 +13,5 @@
 
 /* O histórico de avaliações fica dentro de cada grupo. */
 .nav button[data-page="avaliacoes"]{display:none}
+.back-button{display:inline-flex;align-items:center;gap:6px;margin:0 0 6px;padding:6px 0;background:transparent;color:#2879a7;font-size:13px;font-weight:800}.back-button:hover{color:#174f74;text-decoration:underline}
 
