@@ -14,7 +14,7 @@ document.addEventListener('click', event => {
 function groupEvaluationsView(groupId) {
   const currentGroup = group(groupId);
   const evaluations = groupEvals(groupId).slice().reverse();
-  return `${header(`Avaliações anteriores · ${currentGroup.name}`)}${notice()}<section class="panel"><div class="section-title"><div><h2>${currentGroup.name} · ${data.className}</h2><p class="muted">Histórico de avaliações mensais deste grupo.</p></div><button class="secondary" data-action="evaluate" data-id="${currentGroup.id}">Nova avaliação</button></div>${evaluations.map(item => `<div class="row"><div><b>${item.month}</b><br><small>${item.date} · média geral ${mean(Object.values(item.scores).flat()).toFixed(1)}/4</small><p>${esc(item.note || 'Sem observação geral.')}</p></div><button class="action" data-action="view-eval" data-id="${item.id}">Ver avaliação</button></div>`).join('')}</section>`;
+  return `${header(`Avaliações anteriores · ${currentGroup.name}`)}${notice()}<section class="panel"><div class="section-title"><div><button class="back-button" data-action="go-back" data-page="grupos">← Voltar aos grupos</button><h2>${currentGroup.name} · ${data.className}</h2><p class="muted">Histórico de avaliações mensais deste grupo.</p></div><button class="secondary" data-action="evaluate" data-id="${currentGroup.id}">Nova avaliação</button></div>${evaluations.map(item => `<div class="row"><div><b>${item.month}</b><br><small>${item.date} · média geral ${mean(Object.values(item.scores).flat()).toFixed(1)}/4</small><p>${esc(item.note || 'Sem observação geral.')}</p></div><button class="action" data-action="view-eval" data-id="${item.id}">Ver avaliação</button></div>`).join('')}</section>`;
 }
 
 document.addEventListener('click', event => {
@@ -68,6 +68,7 @@ view = function () {
 document.addEventListener('click', event => {
   const button = event.target.closest('button');
   if (!button) return;
+  if (button.dataset.action === 'go-back') { state.page = button.dataset.page; render(); return; }
   if (button.dataset.action === 'open-alert') { state.group = button.dataset.id; state.page = 'planejamentos'; render(); }
   if (button.dataset.action === 'save-report') {
     const name = button.dataset.id;
