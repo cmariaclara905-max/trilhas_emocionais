@@ -1,5 +1,12 @@
 # Trilhas Socioemocionais
 
+## Demonstração atual
+
+- Escolha de perfil seguida por login: `mariana@escola.edu.br` ou `direcao@escola.edu.br`, senha `123456`.
+- Turma fictícia: 2º ano A, organizada nos Grupos 1, 2, 3 e 4.
+- Avaliação individual mensal pela escala: 1 Baixo, 2 Regular, 3 Bom e 4 Ótimo.
+- Gráficos de evolução dos grupos e dos alunos, histórico individual e planejamento editável.
+
 Aplicativo demonstrativo para acompanhamento socioemocional por grupos, com perfis de Professor(a) e Direção Escolar.
 
 Protótipo responsivo para o acompanhamento pedagógico socioemocional de estudantes. A aplicação foi construída para demonstrar os fluxos principais de professores e da equipe gestora, usando somente dados fictícios.
