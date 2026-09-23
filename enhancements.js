@@ -41,7 +41,12 @@ document.addEventListener('click', event => {
     data.reportEdits[name] = '23/09/2026';
     button.textContent = 'Alterações salvas ✓';
   }
-  if (button.dataset.action === 'print-report') window.print();
+  if (button.dataset.action === 'print-report') {
+    const report = document.querySelector('#student-report').value;
+    const printWindow = window.open('', '_blank', 'width=820,height=900');
+    printWindow.document.write(`<!doctype html><html lang="pt-BR"><head><title>Relatório pedagógico</title><style>body{font-family:Arial,sans-serif;color:#243b53;line-height:1.6;margin:42px}h1{color:#24496c;font-size:24px;border-bottom:2px solid #54a77a;padding-bottom:12px}pre{white-space:pre-wrap;font:inherit}.note{color:#617481;font-size:12px;margin-top:28px}</style></head><body><h1>Trilhas Socioemocionais</h1><pre>${report.replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]))}</pre><p class="note">Documento pedagógico confidencial · Gerado em 23/09/2026</p><script>window.onload=()=>window.print()<\/script></body></html>`);
+    printWindow.document.close();
+  }
 });
 
 document.addEventListener('submit', event => {
