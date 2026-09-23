@@ -11,6 +11,34 @@ document.addEventListener('click', event => {
   app.innerHTML = `<div class="shell">${nav()}<main class="content">${alertsView()}</main></div>`;
 }, true);
 
+function groupEvaluationsView(groupId) {
+  const currentGroup = group(groupId);
+  const evaluations = groupEvals(groupId).slice().reverse();
+  return `${header(`Avaliações anteriores · ${currentGroup.name}`)}${notice()}<section class="panel"><div class="section-title"><div><h2>${currentGroup.name} · ${data.className}</h2><p class="muted">Histórico de avaliações mensais deste grupo.</p></div><button class="secondary" data-action="evaluate" data-id="${currentGroup.id}">Nova avaliação</button></div>${evaluations.map(item => `<div class="row"><div><b>${item.month}</b><br><small>${item.date} · média geral ${mean(Object.values(item.scores).flat()).toFixed(1)}/4</small><p>${esc(item.note || 'Sem observação geral.')}</p></div><button class="action" data-action="view-eval" data-id="${item.id}">Ver avaliação</button></div>`).join('')}</section>`;
+}
+
+document.addEventListener('click', event => {
+  const button = event.target.closest('button');
+  if (!button || button.dataset.action !== 'group-evals') return;
+  event.preventDefault();
+  event.stopImmediatePropagation();
+  state.group = button.dataset.id;
+  app.innerHTML = `<div class="shell">${nav()}<main class="content">${groupEvaluationsView(state.group)}</main></div>`;
+}, true);
+
+const decorateGroups = () => document.querySelectorAll('[data-action="evaluate"]').forEach(button => {
+  const parent = button.parentElement;
+  if (!parent || parent.querySelector('[data-action="group-evals"]')) return;
+  const history = document.createElement('button');
+  history.className = 'action';
+  history.dataset.action = 'group-evals';
+  history.dataset.id = button.dataset.id;
+  history.textContent = 'Avaliações anteriores';
+  parent.append(history);
+});
+new MutationObserver(decorateGroups).observe(app, { childList:true, subtree:true });
+decorateGroups();
+
 view = function () {
   if (state.stage === 'profile') return profileView();
   if (state.stage === 'login') return loginView();
