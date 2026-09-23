@@ -31,6 +31,7 @@ const removeEvaluationMenu = () => document.querySelectorAll('button[data-page="
 const decorateGroups = () => {
   removeEvaluationMenu();
   document.querySelectorAll('[data-action="evaluate"]').forEach(button => {
+  if (!button.closest('.group-row')) return;
   const parent = button.parentElement;
   if (!parent || parent.querySelector('[data-action="group-evals"]')) return;
   const history = document.createElement('button');
